@@ -108,7 +108,6 @@ contract KalElToken {
         return tokenName;
     }
 
-    // have to deploy the token again, and use this function in frontend.
     function getOwner() public view returns (address) {
         return owner;
     }
