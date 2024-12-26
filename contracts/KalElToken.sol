@@ -39,7 +39,7 @@ contract KalElToken {
         uint256 _totalCappedSupply,
         uint8 _decimals
     ) {
-        require((_decimals > 0 && _decimals <= 18), "Macha: invalid decimals");
+        require((_decimals >= 0 && _decimals <= 18), "Macha: invalid decimals");
         require(
             (_initialSupply > 0),
             "Macha : Intial supply must be greater than 0"
@@ -102,6 +102,11 @@ contract KalElToken {
         _;
     }
 
+    modifier isValidAmount(uint256 amount) {
+        require(amount > 0, "KalEl: Transfer amount must be greater than zero");
+        _;
+    }
+
     // defining get functions for the state variables.
 
     function name() public view returns (string memory) {
@@ -141,6 +146,7 @@ contract KalElToken {
         public
         whenNotPaused
         isValidAddress(to)
+        isValidAmount(amount)
         hasSufficientBalance(_balances[msg.sender], amount)
         returns (bool)
     {
@@ -167,10 +173,13 @@ contract KalElToken {
     function approve(
         address spender,
         uint256 amount
-    ) public whenNotPaused isValidAddress(spender) returns (bool) {
+    ) public whenNotPaused isValidAddress(spender) {
+        require(
+            _allowances[msg.sender][spender] == 0 || amount == 0,
+            "KalEl: Reset allowance to 0 first"
+        );
         _allowances[msg.sender][spender] = amount;
         emit Approval(msg.sender, spender, amount);
-        return true;
     }
 
     function transferFrom(
@@ -182,6 +191,7 @@ contract KalElToken {
         whenNotPaused
         isValidAddress(from)
         isValidAddress(to)
+        isValidAmount(amount)
         hasSufficientAllowance(_allowances[from][msg.sender], amount)
         hasSufficientBalance(_balances[from], amount)
         returns (bool)
@@ -199,6 +209,7 @@ contract KalElToken {
     )
         public
         isValidAddress(from)
+        isValidAmount(amount)
         hasSufficientBalance(_balances[from], amount)
         onlyOwner
         returns (bool)
@@ -215,6 +226,7 @@ contract KalElToken {
     )
         public
         isValidAddress(to)
+        isValidAmount(amount)
         withinCappedSupply(amount)
         onlyOwner
         returns (bool)

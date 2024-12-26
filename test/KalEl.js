@@ -16,13 +16,13 @@ describe("KalElToken", function () {
             "KalElToken",
             "KET",
             1000,
-            2
+            0
         );
     });
 
     describe("Deployment", function () {
         it("Should have the correct decimals", async function () {
-            expect(await KalElToken.getDecimals()).to.equal(2);
+            expect(await KalElToken.getDecimals()).to.equal(0);
         });
 
         it("Should deploy the contract with the correct owner", async function () {
@@ -36,7 +36,7 @@ describe("KalElToken", function () {
 
         it("Should assign the initial supply to the owner", async function () {
             const balance = await KalElToken.balanceOf(owner.address);
-            expect(balance).to.equal(100 * (10 ** 2));
+            expect(balance).to.equal(100);
         });
     });
 
