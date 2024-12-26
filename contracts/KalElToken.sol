@@ -128,6 +128,10 @@ contract KalElToken {
         return _balances[account];
     }
 
+    function status() public view returns (bool) {
+        return !paused;
+    }
+
     // core operations functions.
 
     function transfer(
