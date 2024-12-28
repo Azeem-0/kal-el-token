@@ -12,7 +12,7 @@ The KalEl Token is a capped, ERC-20-like token implemented in Solidity. It inclu
 
 ## Prerequisites
 - Solidity ^0.8.28
-- An Ethereum development environment (e.g., Hardhat, Truffle)
+- An Ethereum development environment (e.g., Hardhat)
 - Node.js and npm (for testing and deployment)
 
 
@@ -60,7 +60,7 @@ The KalEl Token is a capped, ERC-20-like token implemented in Solidity. It inclu
 6. Deploy the contract using Hardhat:
 
    ```bash
-   npx hardhat run scripts/deploy.js --network sepolia  
+   npx hardhat run scripts/deploy.js --network <your_preferred_network>  
    ```
 
 
@@ -94,14 +94,14 @@ constructor(
 - `transfer(address to, uint256 amount)`: Transfer tokens to given address.
 - `approve(address spender, uint256 amount)`: Approve allowance to `spender` address.
 - `transferFrom(address from, address to, uint256 amount)`: Transfer from given `from` address to `to` address
-- `allowance(address owner, address spender)`: Check Allowance
+- `allowance(address owner, address spender)`: Check Allowance for `spender` from `owner` address
 
 ### Owner-Only Functions
 - `mint(address to, uint256 amount)`: Mint new tokens into the given address.
 - `burn(address from, uint256 amount)`: Burn tokens from the given address.
 - `pause()`: Pause token operations.
 - `unpause()`: Unpause token operations.
-- `transferOwnership(address newOwner)`: Transfer owner to newOwner address.
+- `transferOwnership(address newOwner)`: Transfer owner to `newOwner` address.
 
 ### View Functions
 - `name()`: Returns the name of the token.
