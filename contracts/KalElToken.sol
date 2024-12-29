@@ -211,7 +211,6 @@ contract KalElToken {
         isValidAddress(from)
         isValidAmount(amount)
         hasSufficientBalance(_balances[from], amount)
-        onlyOwner
         returns (bool)
     {
         _balances[from] -= amount;
@@ -228,7 +227,6 @@ contract KalElToken {
         isValidAddress(to)
         isValidAmount(amount)
         withinCappedSupply(amount)
-        onlyOwner
         returns (bool)
     {
         _balances[to] += amount;
@@ -237,13 +235,13 @@ contract KalElToken {
         return true;
     }
 
-    function pause() public onlyOwner {
+    function pause() public {
         require(!paused, "KalEl: Token is already paused.");
         paused = true;
         emit Paused(msg.sender);
     }
 
-    function unpause() public onlyOwner {
+    function unpause() public {
         require(paused, "KalEl: Token is currently active, cannot unpause.");
         paused = false;
         emit Unpaused(msg.sender);
@@ -251,7 +249,7 @@ contract KalElToken {
 
     function transferOwnership(
         address newOwner
-    ) public onlyOwner isValidAddress(newOwner) {
+    ) public isValidAddress(newOwner) {
         emit OwnershipTransferred(owner, newOwner);
         owner = newOwner;
     }

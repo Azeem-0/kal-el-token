@@ -2,7 +2,7 @@ const { ethers } = require("hardhat");
 
 async function main() {
     const KalEl = await ethers.getContractFactory("KalElToken");
-    const token = await KalEl.deploy(100, "KALEL", "KET", 1000, 8);
+    const token = await KalEl.deploy(1000, "KALEL", "KET", 10000, 8);
     await token.waitForDeployment();
 
     console.log("Token deployed successfully to : ", await token.getAddress());

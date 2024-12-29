@@ -122,6 +122,6 @@ constructor(
 
 
 ## Security Considerations
-- Only the owner can perform sensitive operations like minting, burning, pausing, and transferring ownership.
+- **Owner-Only Functions** : The functions that are intended to be restricted to the owner (such as minting, burning, pausing, and transferring ownership) are made public in this contract for testing purposes only. In a production environment, these functions should be restricted to the owner using modifiers like onlyOwner to prevent unauthorized access.
 - Proper checks are in place to ensure the capped supply limit is respected.
 - Address validation ensures no zero-address operations.
